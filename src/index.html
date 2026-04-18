@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,7 +6,10 @@
     <title>Tic-Tac-Toe</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -18,12 +21,16 @@
     <main class="app">
       <!-- Header -->
       <header class="header">
-        <h1 class="title">TIC<span class="accent">·</span>TAC<span class="accent">·</span>TOE</h1>
+        <h1 class="title">
+          TIC<span class="accent">·</span>TAC<span class="accent">·</span>TOE
+        </h1>
         <div class="header-controls">
           <button class="icon-btn" id="sound-btn" title="Toggle Sound">
             <span id="sound-icon">🔊</span>
           </button>
-          <button class="icon-btn" id="theme-btn" title="Toggle Theme">⚙</button>
+          <button class="icon-btn" id="theme-btn" title="Toggle Theme">
+            ⚙
+          </button>
         </div>
       </header>
 
@@ -54,7 +61,9 @@
 
       <!-- Turn Indicator -->
       <div class="turn-indicator">
-        <div class="turn-text">TURN: <span id="current-turn" class="turn-symbol x-color">X</span></div>
+        <div class="turn-text">
+          TURN: <span id="current-turn" class="turn-symbol x-color">X</span>
+        </div>
         <div class="turn-dots">
           <span class="dot active" id="dot-x"></span>
           <span class="dot" id="dot-o"></span>
@@ -79,7 +88,9 @@
       <!-- Action Buttons -->
       <div class="action-row">
         <button class="action-btn reset-btn" id="reset-btn">↺ New Round</button>
-        <button class="action-btn danger-btn" id="clear-btn">✕ Reset Scores</button>
+        <button class="action-btn danger-btn" id="clear-btn">
+          ✕ Reset Scores
+        </button>
       </div>
     </main>
 

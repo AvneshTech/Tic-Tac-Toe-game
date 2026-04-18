@@ -1,25 +1,3 @@
-let boxes = document.querySelectorAll(".box");
-let resetBtn = document.querySelector("#reset-btn");
-let newBtn = document.querySelector("#new-btn");
-let msgContainer = document.querySelector(".msg-container");
-let msg = document.querySelector("#msg");
-
-let turnO = true;
-
-const winPatterns = [
-  [0, 1, 2],/* ──────────────────────────────────────────
-   Tic-Tac-Toe  —  Enhanced Edition
-   Features:
-   • Score tracking (X wins / O wins / Draws)
-   • Draw detection
-   • AI opponent (Minimax algorithm)
-   • Winning cells highlighted
-   • Turn indicator with animated dots
-   • Sound effects (Web Audio API)
-   • Score-bump animation
-   • Pop-in animation on cell play
-────────────────────────────────────────── */
-
 // ── DOM refs ──────────────────────────────
 const boxes        = document.querySelectorAll(".box");
 const resetBtn     = document.getElementById("reset-btn");
