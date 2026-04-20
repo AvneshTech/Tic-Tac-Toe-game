@@ -34,6 +34,30 @@ const WIN_PATTERNS = [
   [0,4,8],[2,4,6]            // diags
 ];
 
+function getCurrentPlayer() {
+  return turnX ? "X" : "O";
+}
+
+function isAiTurn() {
+  return aiMode && !turnX;
+}
+
+function switchTurn() {
+  turnX = !turnX;
+  updateTurnUI();
+}
+
+function isBoardFull(boardState = board) {
+  return boardState.every((cell) => cell !== "");
+}
+
+function getWinner(b) {
+  for (const [a, bb, c] of WIN_PATTERNS) {
+    if (b[a] && b[a] === b[bb] && b[bb] === b[c]) return b[a];
+  }
+  return null;
+}
+
 // ── Audio (Web Audio API) ─────────────────
 const AudioCtx = window.AudioContext || window.webkitAudioContext;
 let ctx;
@@ -125,22 +149,19 @@ function makeMove(index, player) {
 // ── Box click handler ─────────────────────
 boxes.forEach((box) => {
   box.addEventListener("click", () => {
-    if (gameOver || (!turnX && aiMode)) return;   // block click when AI's turn
-    const idx = parseInt(box.dataset.index);
-    const player = turnX ? "X" : "O";
+    if (gameOver || isAiTurn()) return;
+
+    const idx = Number(box.dataset.index);
+    const player = getCurrentPlayer();
     if (!makeMove(idx, player)) return;
 
-    const winner = checkWinner();
-    if (winner) return;
+    if (checkWinner()) return;
 
-    if (!aiMode) {
-      turnX = !turnX;
-      updateTurnUI();
-    } else {
-      turnX = false;
-      updateTurnUI();
+    if (aiMode) {
       disableAllBoxes();
       setTimeout(aiMove, 450);
+    } else {
+      switchTurn();
     }
   });
 });
@@ -150,10 +171,8 @@ function aiMove() {
   const best = minimax(board, false);
   makeMove(best.index, "O");
 
-  const winner = checkWinner();
-  if (!winner) {
-    turnX = true;
-    updateTurnUI();
+  if (!checkWinner()) {
+    switchTurn();
     enableEmptyBoxes();
   }
 }
@@ -178,26 +197,18 @@ function minimax(b, isMaximising) {
     : moves.reduce((best, m) => m.score < best.score ? m : best, { score:  Infinity });
 }
 
-// ── Check winner ──────────────────────────
-function getWinner(b) {
-  for (const [a, bb, c] of WIN_PATTERNS) {
-    if (b[a] && b[a] === b[bb] && b[bb] === b[c]) return b[a];
-  }
-  return null;
-}
-
 function checkWinner() {
-  for (const pattern of WIN_PATTERNS) {
-    const [a, b, c] = pattern;
-    if (board[a] && board[a] === board[b] && board[b] === board[c]) {
-      handleWin(board[a], pattern);
-      return true;
-    }
+  const winner = getWinner(board);
+  if (winner) {
+    handleWin(winner, WIN_PATTERNS.find(([a, b, c]) => board[a] === winner && board[b] === winner && board[c] === winner));
+    return true;
   }
-  if (board.every(c => c !== "")) {
+
+  if (isBoardFull()) {
     handleDraw();
     return true;
   }
+
   return false;
 }
 
