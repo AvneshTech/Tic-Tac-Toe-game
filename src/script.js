@@ -125,9 +125,10 @@ function makeMove(index, player) {
 // ── Box click handler ─────────────────────
 boxes.forEach((box) => {
   box.addEventListener("click", () => {
-    if (gameOver || !turnX && aiMode) return;   // block click when AI's turn
+    if (gameOver || (!turnX && aiMode)) return;   // block click when AI's turn
     const idx = parseInt(box.dataset.index);
-    if (!makeMove(idx, "X")) return;
+    const player = turnX ? "X" : "O";
+    if (!makeMove(idx, player)) return;
 
     const winner = checkWinner();
     if (winner) return;
