@@ -170,13 +170,13 @@ boxes.forEach((box) => {
 
 // ── AI Move (Minimax) ─────────────────────
 function aiMove() {
-  const best = minimax(board, false);
+  const best = minimax(board, true); // ✅ O is the maximiser
   makeMove(best.index, "O");
 
   if (!checkWinner()) {
     turnX = true;
     updateTurnUI();
-    enableEmptyBoxes();
+    enableEmptyBoxes(); // ✅ re-enable boxes for human's turn
   }
 }
 
