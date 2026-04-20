@@ -158,6 +158,8 @@ boxes.forEach((box) => {
     if (checkWinner()) return;
 
     if (aiMode) {
+      turnX = false;
+      updateTurnUI();
       disableAllBoxes();
       setTimeout(aiMove, 450);
     } else {
@@ -172,7 +174,8 @@ function aiMove() {
   makeMove(best.index, "O");
 
   if (!checkWinner()) {
-    switchTurn();
+    turnX = true;
+    updateTurnUI();
     enableEmptyBoxes();
   }
 }
